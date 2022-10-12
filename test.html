@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>amazing.com</h1>
+    <h2>amazingpatrick.com</h2>
+    <h1>派大星啊</h1>
+  </body>
+  <script>
+    let strs = "(010)99999999 (020)88888888";
+    let reg = /\((\d{3,4})\)(\d{7,8})/g;
+    console.log(strs.replace(reg, "$1-$2"));
+  </script>
+</html>
