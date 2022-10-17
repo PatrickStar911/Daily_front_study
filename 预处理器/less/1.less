@@ -1,0 +1,14 @@
+@import url(./triangle.less);
+* {
+  margin: 0;
+  padding: 0;
+}
+@color: #00ffff;
+
+.wrap {
+  width: 800px;
+  margin: 50px auto;
+  .triangle {
+    .triangle(R,@color:@color);
+  }
+}

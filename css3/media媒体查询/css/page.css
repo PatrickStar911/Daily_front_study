@@ -1,0 +1,22 @@
+.page {
+  display: flex;
+}
+.page a {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #ddd;
+  border-right: none;
+}
+.page a:first-child {
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
+}
+.page a:last-child {
+  border-right: 1px solid #ddd;
+  border-top-right-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
+}
+.page a.current {
+  color: #fff;
+  background: #008c8c;
+  border: 1px solid #16a085;
+}

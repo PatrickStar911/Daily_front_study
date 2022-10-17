@@ -1,0 +1,21 @@
+.triangle(@_) {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.triangle(T,@w:30px,@color:#008c8c) {
+  border: @w solid;
+  border-color: transparent transparent @color transparent;
+}
+.triangle(R,@w:30px,@color:#008c8c) {
+  border: @w solid;
+  border-color: transparent transparent transparent @color;
+}
+.triangle(B,@w:30px,@color:#008c8c) {
+  border: @w solid;
+  border-color: @color transparent transparent transparent;
+}
+.triangle(L,@w:30px,@color:#008c8c) {
+  border: @w solid;
+  border-color: transparent @color transparent transparent;
+}

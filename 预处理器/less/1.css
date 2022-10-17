@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.wrap {
+  width: 800px;
+  margin: 50px auto;
+}
+.wrap .triangle {
+  border: 30px solid;
+  border-color: transparent transparent transparent #00ffff;
+}
