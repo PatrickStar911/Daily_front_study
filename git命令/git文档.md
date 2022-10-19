@@ -215,4 +215,17 @@ git push -u origin master
 ### 本地分支与 github 远程分支同步
 
 - 查看远程分支
+
   > git branch -a
+
+- 本地分支推送至远程分支(远程分支未创建)
+
+  > git push --set-upstream origin [branchname]
+
+### 请求远程分支
+
+课程位置：p31 节
+
+> git pull origin [branchName]:branchName
+
+这段代码的作用是将远程分支的代码拉到本地，并在本地新建此分支
