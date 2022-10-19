@@ -229,3 +229,9 @@ git push -u origin master
 > git pull origin [branchName]:branchName
 
 这段代码的作用是将远程分支的代码拉到本地，并在本地新建此分支
+
+### 删除远程分支
+
+在主分支内进行删除操作
+
+> git push origin --delete [branchName]
