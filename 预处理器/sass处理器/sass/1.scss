@@ -1,0 +1,23 @@
+%button-format {
+  padding: 10px 20px;
+  border-radius: 15px;
+  color: black;
+}
+
+.toolbar-button {
+  @extend %button-format;
+  background-color: lightpink;
+
+  &:hover {
+    background-color: rgb(155, 106, 114);
+  }
+}
+
+.status-bar-button {
+  @extend %button-format;
+  background-color: lightblue;
+
+  &:hover {
+    background-color: #006c6c;
+  }
+}
