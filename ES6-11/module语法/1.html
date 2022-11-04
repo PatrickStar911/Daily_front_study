@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script src="./js/1.js" type="module" /> -->
+    //1.加了module就变成了异步的引入，等创建好dom节点再执行
+    //2.这种写法的缺点是，浏览器执行时会把它当作封闭的模块，你无法再访问到里面的方法
+  </head>
+  <body>
+    <div>1</div>
+    <script type="module">
+      // 导入模块
+      import name from "./js/1.js";
+      console.log(name);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+    "news":[
+        {"id":1, "title": "男人看了沉默，女人看了流泪", "author": "kerwin"},
+        {"id":2, "title": "我草，牛逼啊", "author": "tiechui"},
+        {"id":3, "title": "极品好看的萝莉", "author": "patrickStar"}
+    ],
+    "comments": [
+        {"id": 1, "body": "我是男的", "newsId": 1},
+        {"id": 2, "body": "我是女的", "newsId": 1},
+        {"id": 3, "body": "我是111", "newsId": 2},
+        {"id": 4, "body": "我是112", "newsId": 2},
+        {"id": 5, "body": "我是331", "newsId": 3},
+        {"id": 5, "body": "我是332", "newsId": 3}
+    ]
+}

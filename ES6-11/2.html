@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let iteratorObj = {
+        name: "patrirck",
+        age: 18,
+        items: [1, 2, "ljc"],
+        // 部署Symbol.iterator属性
+        [Symbol.iterator]() {
+          let i = 0;
+          return {
+            next: () => {
+              // 类型转化为Boolean
+              let done = i >= this.items.length;
+              // 数据确认
+              let value = !done ? this.items[i++] : undefined;
+              // 数据返回
+              return {
+                done,
+                value,
+              };
+            },
+          };
+        },
+      };
+      for (let item of iteratorObj) {
+        console.log(item); // 1 2 ljc
+      }
+    </script>
+  </body>
+</html>

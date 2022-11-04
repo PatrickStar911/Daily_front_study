@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let str = `
+      <ul>
+        <li>1111</li>  
+        <li>2222</li>  
+        <li>3333</li>  
+        <li>4444</li>  
+      </ul>
+      `;
+      let reg = /<li>(?<content>.*)<\/li>/g;
+      // 写法1
+      // let match = null;
+      // while ((match = reg.exec(str))) {
+      //   console.log(match.groups.content);
+      // }
+      // 写法2 matchAll方法
+      let iobj = str.matchAll(reg);
+      for (let i of iobj) {
+        console.log(i.groups.content);
+      }
+    </script>
+  </body>
+</html>
