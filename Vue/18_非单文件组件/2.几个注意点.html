@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <!-- 
+        几个注意点：
+            1.关于组件名：
+                一个单词组成：
+                    第一种写法(首字母小写)：school
+                    第二种写法(首字母大写):School
+                多个单词组成：
+                    第一种写法(kebab-case命名): my-shcool   
+                    第二种写法(CamelCase): Myschool(需要Vue脚手架支持)
+                备注:
+                    (1).组件名尽可能回避HTML中已有的元素名称，例如：h2、H2都不行。
+                    (2).可以使用name配置项指定组件在开发者工具中呈现的名字。
+                    
+            2.关于组件标签：
+                第一种写法：<school></school> 
+                第二种写法：<shcool/>
+                备注：不用使用脚手架时，<school/>会导致后续组件不能渲染。
+
+            3.一个简写方式：
+                const school = Vue.extend(options) 可以简写为： const school = options
+   -->
+  <body>
+    <div id="root">
+      <School></School>
+    </div>
+  </body>
+  <script>
+    // const School = Vue.extend({
+    //   name: "atguigu", //这里写了name之后，开发者工具则默认使用这个名字
+    //   template: `
+    //         <div>
+    //             <h2>学校名称：{{name}}</h2>
+    //             <h2>学校地址：{{adress}}</h2>
+    //         </div>
+    //     `,
+    //   data() {
+    //     return {
+    //       name: "尚硅谷",
+    //       adress: "北京",
+    //     };
+    //   },
+    // });
+
+    //定义组件的简写形式
+    const School = {
+      name: "atguigu", //这里写了name之后，开发者工具则默认使用这个名字
+      template: `
+            <div>
+                <h2>学校名称：{{name}}</h2>
+                <h2>学校地址：{{adress}}</h2>
+            </div>
+        `,
+      data() {
+        return {
+          name: "尚硅谷",
+          adress: "北京",
+        };
+      },
+    };
+
+    Vue.config.production = false;
+    new Vue({
+      el: "#root",
+      components: {
+        School,
+      },
+    });
+  </script>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js/vue.js"></script>
+    <style>
+      * {
+        margin-top: 20px;
+      }
+      .demo1 {
+        height: 50px;
+        background: #008c8c;
+      }
+      .box1 {
+        height: 100px;
+        background-color: #008c8c;
+      }
+      .box2 {
+        height: 50px;
+        background-color: skyblue;
+      }
+      .list {
+        width: 200px;
+        height: 200px;
+        background: violet;
+        overflow: auto;
+      }
+      li {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <!-- 
+        Vue中的事件修饰符：
+        1. prevent: 阻止默认事件(常用)
+        2. stop: 阻止事件冒泡(常用)
+        3. once: 事件只触发一次(常用)
+        4. capture：使用事件的捕获模式；
+        5. self: 只有event.target是当前操作的元素时才触发事件；
+        6. passive: 事件的默认行为立即执行，无需等待事件回调执行完毕
+   -->
+  <body>
+    <div id="root">
+      <h2>欢迎来到{{name}}</h2>
+
+      <!-- 阻止默认事件(常用) -->
+      <a href="http://www.baidu.com" @click.prevent="showInfo">点我提示信息</a>
+
+      <!-- 阻止事件冒泡(常用) -->
+      <div class="demo1" @click="showInfo">
+        <button @click="showInfo.stop">点我提示信息</button>
+      </div>
+
+      <!-- 事件只触发一次 -->
+      <button @click.once="showInfo">点我只弹窗一次</button>
+
+      <!-- 使用事件的捕获模式 -->
+      <!-- 事件是先捕获，然后再冒泡，使用了事件捕获后，在捕获阶段就开始执行该事件 -->
+      <div class="box1" @click.capture="showMsg(1)">
+        div1
+        <div class="box2" @click="showMsg(2)">div2</div>
+      </div>
+
+      <!-- 只有event.target是当前操作的元素时才触发事件；
+        分析：
+          当按钮点击时，此时触发的target是按钮的target，只有当外层的target触发时，才会走click.self的事件
+      -->
+      <div class="demo1" @click.self="showInfo">
+        <button @click="showInfo">点我提示信息</button>
+      </div>
+
+      <!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+      <ul class="list" @wheel="demo">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.production = false;
+    new Vue({
+      el: "#root",
+      data: {
+        name: "PartrickStar",
+      },
+      methods: {
+        showInfo(e) {
+          // alert("你好啊！");
+          console.log(e.target);
+        },
+        showMsg(data) {
+          console.log(data);
+        },
+        demo() {
+          console.log("@");
+        },
+      },
+    });
+  </script>
+</html>

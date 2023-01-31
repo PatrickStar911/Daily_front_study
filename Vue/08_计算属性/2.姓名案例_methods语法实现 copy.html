@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>姓名案例————methods语法实现</title>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      姓: <input type="text" name="" id="" v-model="firstName" /> <br />
+      名: <input type="text" name="" id="" v-model="lastName" /> <br />
+      全名: <span>{{fullName()}}</span>
+      <!-- 当data里的数据变化时，Vue会重新解析模板，这里的方法会被重新调用 -->
+    </div>
+  </body>
+  <script>
+    Vue.config.production = false;
+    new Vue({
+      el: "#root",
+      data: {
+        firstName: "张",
+        lastName: "三",
+      },
+      methods: {
+        fullName() {
+          return this.firstName + "-" + this.lastName;
+        },
+      },
+    });
+  </script>
+</html>

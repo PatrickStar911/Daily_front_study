@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .basic {
+        /* width: 100px; */
+        height: 100px;
+        border: 3px solid #008c8c;
+      }
+      .happy {
+        background-image: linear-gradient(
+          140deg,
+          #eadedb 0%,
+          #bc70a4 50%,
+          #bfd641 75%
+        );
+      }
+      .sad {
+        background-color: #adadad;
+      }
+      .normal {
+        background-color: #b5dac4;
+      }
+      .name1 {
+        font-size: 2em;
+        font-weight: 700;
+      }
+      .name2 {
+        text-shadow: 2px 2px 5px #bc70a4;
+      }
+      .name3 {
+        border-radius: 5px;
+      }
+    </style>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <!-- 
+    绑定样式：
+      1. class写法：
+         :class=“xxx”xxx可以是字符串、对象、数组。
+         字符串写法适用于:类名不确定，要动态获取。
+         对象写法适用于:要绑定多个样式，个数不确定，名字也不确定。
+         数组写法适用于:要绑定多个样式，个数确定，名字也确定，但不确定用不用。
+         
+      2. style样式
+         :style="{fontSize:xxx}"其中xxx是动态值
+         :style="[a,b]"其中a、b是样式对象。
+   -->
+  <body>
+    <div id="root">
+      <!-- 绑定class样式-- 字符串写法，适用于：样式的类名不确定，需要动态指定 -->
+      <div class="basic" :class="mood" @click="changeMood">{{name}}</div>
+      <br />
+      <br />
+      <!-- 绑定class样式-- 数组写法，适用于：要绑定的样式个数不确定、名字也不确定 -->
+      <div class="basic" :class="classArr">{{name}}2</div>
+      <br />
+      <br />
+      <!-- 绑定class样式-- 对象写法，适用于：要绑定的样式个数确定、名字也确定，但是要动态决定用不用 -->
+      <div class="basic" :class="classObj">{{name}}3</div>
+      <br />
+      <br />
+      <!-- 内联样式的方式绑定 -->
+      <!-- <div class="basic" :style="{fontSize: fsize+'px'}">{{name}}4</div> -->
+      <div class="basic" :style="styleObj">{{name}}4</div>
+      <!-- 用数组的方式，同时应用两个样式 -->
+      <!-- <div class="basic" :style="[styleObj1,styleObj2]">{{name}}4</div> -->
+    </div>
+  </body>
+  <script>
+    Vue.config.production = false;
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name: "PartrickStar",
+        mood: "normal",
+        classArr: ["name1", "name2", "name3"],
+        classObj: {
+          name1: false,
+          name2: false,
+        },
+        // fsize: 40,
+        styleObj: {
+          fontSize: "40px",
+        },
+        styleObj1: {
+          fontSize: "40px",
+          color: "red",
+        },
+        styleObj2: {
+          backgroundColor: "#008c8c",
+        },
+      },
+      methods: {
+        changeMood() {
+          const arr = ["happy", "normal", "sad"];
+          let num = Math.floor(Math.random() * 3); //random生成的是0-1的小数，包括0但不包括1
+          this.mood = arr[num];
+        },
+      },
+    });
+  </script>
+</html>

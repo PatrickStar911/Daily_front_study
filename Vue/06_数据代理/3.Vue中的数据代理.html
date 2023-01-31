@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue中的数据代理</title>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <!-- 
+    修改vm.xxx属性时，这个属性设置了setter和getter代理，当访问时调用getter方法，读取_data里的数据，
+    当修改属性的值时，会调用setter方法，修改_data里面的值，同时_data里面的属性也设置了代理，当_data里面的值被修改时，会通过代理渲染页面
+   -->
+  <body>
+    <div id="root">
+      <p>{{name}}</p>
+      <p>{{adress}}</p>
+    </div>
+  </body>
+  <script>
+    Vue.config.production = false;
+    let vm = new Vue({
+      el: "#root",
+      data: {
+        name: "PartrickStar",
+        adress: "海淀区",
+      },
+    });
+  </script>
+</html>

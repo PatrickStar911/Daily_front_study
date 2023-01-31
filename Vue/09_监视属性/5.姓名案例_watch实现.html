@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>姓名案例_计算属性实现</title>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <!-- 
+      computed和watch之间的区别：
+        1.computed能完成的功能，watch都可以完成。
+        2.watch能完成的功能，computed不一定能完成，例如: watch可以进行异步操作。
+        两个重要的小原则:
+          1.所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm 或 组件实例对象。
+          2.所有不被Vue所管理的函数(定时器的回调函数、ajax的回调函数等、promise的回调函数)，最好写成箭头函数,这样this的指向才是vm 或 组件实例对象。
+   -->
+  <body>
+    <div id="root">
+      姓: <input type="text" name="" id="" v-model="firstName" /> <br />
+      名: <input type="text" name="" id="" v-model="lastName" /> <br />
+      全名: <span>{{fullName}}</span>
+    </div>
+  </body>
+  <script>
+    Vue.config.production = false;
+    let vm = new Vue({
+      el: "#root",
+      data: {
+        firstName: "张",
+        lastName: "三",
+        fullName: "张-三",
+      },
+      watch: {
+        firstName(newV) {
+          setTimeout(() => {
+            console.log(this);
+            this.fullName = newV + "-" + this.lastName;
+          }, 1000);
+        },
+        lastName(newV) {
+          this.fullName = this.firstName + "-" + newV;
+        },
+      },
+    });
+  </script>
+</html>

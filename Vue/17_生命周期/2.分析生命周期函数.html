@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root" :x="n">
+      <h2>当前的n值是: {{n}}</h2>
+      <button @click="add">点我n+1</button>
+      <button @click="bye">点我销毁vm</button>
+    </div>
+  </body>
+  <script>
+    Vue.config.production = false;
+    new Vue({
+      el: "#root",
+      // 写template和写在root里面的区别： 写在root里面，Vue编译的时候会编译root里面的属性x并绑定n的数值，如果换做是template则不会编译root根节点
+      //   template: `
+      //     <div>
+      //         <h2>当前的n值是: {{n}}</h2>
+      //         <button @click="add">点我n+1</button>
+      //     </div>
+      //   `,
+      data: {
+        n: 1,
+      },
+      methods: {
+        add() {
+          console.log("add");
+          this.n++;
+        },
+        bye() {
+          console.log("bye");
+          this.$destroy();
+        },
+      },
+      watch: {
+        n() {
+          console.log("n变了");
+        },
+      },
+      beforeCreate() {
+        console.log("beforeCreate");
+      },
+      created() {
+        console.log("created");
+      },
+      beforeMount() {
+        //beforeMount阶段 页面呈现的是未经Vue编译的DOM结构
+        //所有对DOM的操作，最终都是不奏效的，因为Vue保存了一份dom结构的同时，把虚拟dom结构插入到了页面中
+        console.log("beforeMount");
+        // document.querySelector("h2").innerHTML = "haha" 这块操作dom不奏效
+      },
+      mounted() {
+        // mounted阶段：
+        // 1、页面中呈现的是经过Vue编译的DOM。
+        // 2、对DOM的操作均有效(尽可能避免)。至此初始化过程结束，一般在此进行：开启定时器、发送网络请求、订阅消息、绑定自定义事件、等初始化操作
+        console.log("mounted");
+      },
+      beforeUpdate() {
+        //在该阶段，数据是新的，但页面是旧的
+        console.log("beforeUpdate");
+      },
+      updated() {
+        //数据是新的，页面也是新的。页面和数据保持同步
+        console.log("updated");
+      },
+      beforeDestroy() {
+        //此时vm中所有的：data、methods、指令等等，都处于可用状态，马上要执行销毁过程
+        //一般在此阶段：关闭定时器、取消订阅消息、解绑自定义事件等收尾操作
+        // 所有对数据的修改 都不会再触发页面的更新
+        console.log("beforeDestroy");
+        // console.log(this.n);
+        this.add();
+      },
+      destroyed() {
+        console.log("destroyed");
+      },
+    });
+  </script>
+</html>

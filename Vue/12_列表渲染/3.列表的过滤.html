@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基本列表</title>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <!-- 
+    v-for指令：
+        1. 用于展示列表数据
+        2. 语法: v-for="(item,index) in xxx" :key="yyy"
+        3. 可遍历：数组、对象、字符串、指定次数
+   -->
+  <body>
+    <div id="root">
+      <!-- 遍历数组 -->
+      <h2>人员列表</h2>
+      <input type="text" placeholder="请输入名字" v-model="keyWord" />
+      <ul>
+        <li v-for="(item,index) in filPersons" :key="item.id">
+          {{item.name}}----{{item.age}}
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.production = false;
+    // 用watch监听实现
+    //#region
+    /* new Vue({
+      el: "#root",
+      data: {
+        keyWord: "",
+        persons: [
+          { id: "001", name: "马冬梅", age: 18, sex: "女" },
+          { id: "002", name: "周冬雨", age: 19, sex: "男" },
+          { id: "003", name: "周杰伦", age: 20, sex: "男" },
+          { id: "004", name: "温兆伦", age: 21, sex: "男" },
+        ],
+        filPersons: [],
+      },
+      watch: {
+        keyWord: {
+          immediate: true,
+          handler(val) {
+            this.filPersons = this.persons.filter((item) => {
+              return item.name.indexOf(val) !== -1;
+            });
+          },
+        },
+      },
+    }); */
+    //#endregion
+
+    // 用computed计算属性实现
+    Vue.config.production = false;
+    new Vue({
+      el: "#root",
+      data: {
+        keyWord: "",
+        persons: [
+          { id: "001", name: "马冬梅", age: 18, sex: "女" },
+          { id: "002", name: "周冬雨", age: 19, sex: "男" },
+          { id: "003", name: "周杰伦", age: 20, sex: "男" },
+          { id: "004", name: "温兆伦", age: 21, sex: "男" },
+        ],
+      },
+      computed: {
+        filPersons() {
+          return this.persons.filter((item) => {
+            return item.name.indexOf(this.keyWord) !== -1;
+            // 此处应当注意，indexOf("")匹配空字符串的时候，默认全部能匹配的上
+          });
+        },
+      },
+    });
+  </script>
+</html>

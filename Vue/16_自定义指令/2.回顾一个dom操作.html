@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">点我创建一个输入框</button>
+    <script>
+      const btn = document.getElementById("btn");
+      btn.onclick = () => {
+        const input = document.createElement("input");
+
+        input.className = "demo";
+        input.value = 99;
+        input.onclick = () => {
+          alert(1);
+        };
+
+        document.appendChild(input); //appendChild上面的代码是元素被创建但是未被添加到页面上的逻辑处理
+
+        input.focus(); //必须要在元素被创建到页面上才能获取焦点
+      };
+    </script>
+  </body>
+</html>

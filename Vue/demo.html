@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../vue.js/vue.js"></script>
+    <style>
+      .box {
+        height: 40px;
+        width: 100px;
+        line-height: 40px;
+        overflow: hidden;
+        position: relative;
+        border: 5px solid #008c8c;
+      }
+      .list {
+        position: absolute;
+        left: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="list" :style="{top:listTop+'px'}">
+        <div v-for="(item,index) in list" :key="index">{{item}}</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: ".box",
+      //js
+      data() {
+        return {
+          list: [1111, 2222, 3333],
+          listTop: 0,
+        };
+      },
+      mounted() {
+        this.setScroll();
+      },
+      methods: {
+        setScroll() {
+          var t = setInterval(() => {
+            this.listTop -= 1;
+            if (this.listTop === -40) {
+              this.list.push(this.list.splice(0, 1)[0]); //删除数组第一个元素，插入到数组后面
+              this.listTop = 0; //重置top
+              clearInterval(t); //取消定时器
+              //设置一个2秒后执行的定时器,重新开启滚动
+              setTimeout(() => {
+                this.setScroll();
+              }, 2000);
+            }
+          }, 20);
+        },
+      },
+    });
+  </script>
+</html>

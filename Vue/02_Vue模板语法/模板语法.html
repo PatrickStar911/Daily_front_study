@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>初识vue</title>
+    <script src="../vue.js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+        Vue模板语法有2大类:
+        1.插值语法:
+            功能:用于解析标签体内容。
+            写法: {{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性。
+            
+        2. 指令语法:
+            功能:用于解析标签 (包括: 标签属性、标签体内容、绑定事件.....)。
+            举例: v-bind;href="xxx”或 简写为 :href="xxx"，xxx同样要写js表达式
+                 且可以直接读取到data中的所有属性。
+            备注: Vue中有很多的指令，且形式都是: v-????，此处我们只是拿v-bind举个例子。
+
+     -->
+
+    <div id="root">
+      <h1>插值语法</h1>
+      <h3>你好，{{name1}}</h3>
+      <hr />
+      <h1>指令语法</h1>
+      <a v-bind:href="hello">点我去{{school.name1}}学习</a>
+      <a :href="url">点我去看片</a>
+      <!-- 加了v-bind就会把url当表达式去执行，而不是当作字符串
+        此外，v-bind 等价于直接写: ，两者没有区别，可以绑定任意的html标签属性
+    --></div>
+    <script>
+      Vue.config.productionTip = false;
+      new Vue({
+        el: "#root",
+        data: {
+          name: "插值语法",
+          name1: "jack",
+          url: "http://www.baidu.com",
+          hello: "你好",
+          school: {
+            name1: "尚硅谷",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
