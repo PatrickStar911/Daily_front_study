@@ -1013,3 +1013,290 @@ var state = regs.every(e => e.test(value));
 ## reg.matchall 方法
 
 ![](./imgs/Snipaste_2022-10-12_14-51-08.jpg)
+
+# BOM 浏览器对象模型
+
+BOM 的核心是 window 对象
+
+## 浏览器可视窗口的尺寸
+
+- innerHeight 和 innerWidth
+  这两个方法分别是用来获取浏览器窗口的宽度和高度(包含滚动条的)
+
+## 浏览器的地址信息
+
+在 winodw 中有个对象叫 location,专门用于存储浏览器的地址栏内的信息
+
+- location.href
+  这个属性存储的是浏览器地址栏内 url 地址的信息
+  ![](./imgs/Snipaste_2022-11-06_15-35-04.jpg)
+
+location.href 也可以用于跳转页面
+
+- reload
+  页面重新加载
+
+## 浏览器的 onload 事件
+
+在页面所有资源加载完毕后执行(图片、视频、dom)
+
+## 浏览器的 resize 事件
+
+window.resize
+在移动端不同屏幕上面显示时，视图窗口大小不一。 window.resize 是窗口大小改变时触发的事件。
+
+## window.onscroll
+
+滚动条滚动时触发的事件
+
+## 浏览器滚动距离
+
+- document.documentElement.scrollTop 纵向滚动距离
+
+  scrollTop 计算的是页面滚动到上面的距离
+  ![](./imgs/Snipaste_2022-11-06_17-03-37.jpg)
+
+注意：如果 有 低版本浏览器不支持 !Doctype 声明的话，上述方法会失效，无法获取滚动条滚动的距离
+
+解决：改用 document.body.scrollTop
+
+- document.documentElement.scrollLeft 横向滚动距离
+
+## window.scrollTo()
+
+写法 1：接收两个参数，x 轴，y 轴
+
+> windwo.scrollTo(0,0)
+
+写法 2：对象
+
+```
+
+    window.scrollTo({
+        left:0,
+        top:0
+        })
+
+```
+
+## window.open
+
+在空白页面中打开新的内容
+
+## window.close
+
+关掉当前页面
+
+## 浏览器的历史记录 history
+
+window 中有一个对象叫做 history，专门用于存储历史记录信息的
+
+1. history.back
+   回退历史记录，回退到前一页
+2. history.forward
+   到下一个历史记录中去，前提是需要有过回退操作
+
+3. history.go()
+
+history.go(-1) 等价于 history.back(),回退一个页面
+history.forward(2)，前进两个页面
+
+## 浏览器本地存储
+
+### localStroage
+
+1. localStorage.setItem
+   存储内容: **只能存字符串**
+   ![](./imgs/Snipaste_2022-11-06_17-44-14.jpg)
+
+2. localStorage.getItem
+   取出存储的内容
+
+   > localStroage.getItem("name") //kerwin
+
+3. localStorage.removeItem
+   删除数据
+
+   > localStorage.removeItem("name") // 删除了 name 属性的内容
+
+4. localStorage.clear
+   全部删除存储的数据
+   > localStorage.clear()
+
+### sessionStorage
+
+![](./imgs/Snipaste_2022-11-06_17-53-34.jpg)
+
+**localStorage 和 sessionStorage 的区别：**
+
+1. localStorage 是永久存储，sessionStorage 是绘画存储(临时存储)
+
+sessionStorage，关闭页面就会丢失
+
+# DOM 浏览器对象模型
+
+## 获取元素尺寸
+
+![](./imgs/Snipaste_2022-11-06_18-20-56.jpg)
+
+1. offsetWidth 和 offsetHeight
+
+   offsetWidth 的计算：内容+padding+border
+
+- 盒模型不会影响计算
+  ![](./imgs/Snipaste_2022-11-08_00-02-22.jpg)
+
+- 注意：
+
+  1). 单位是数字
+  2). display:none 拿不到元素的宽度
+
+2. clientWidth 和 clientHeight
+
+   clientWidth 的计算：内容+padding
+
+## 获取元素的偏移量
+
+1. offsetLeft 和 offsetTop
+   此时这个距离是距离最底部的距离，而不是距离父元素的距离
+   ![](./imgs/Snipaste_2022-11-08_00-11-44.jpg)
+
+**offset 的参考点：是定位父级**
+当给父元素加上定位时，此时 offset 值的变化
+![](./imgs/Snipaste_2022-11-08_00-14-45.jpg)
+
+2. clientLeft 和 clientTop
+   ![](./imgs/Snipaste_2022-11-08_00-26-03.jpg)
+
+## 获取可视窗口的尺寸
+
+注意：window.innerHeight 和 window.innerWidth 获取的是**包含滚动条的可视距离**
+
+此时如果只想计算可视区内容的尺寸，可以用 document.documentElement.clientWidth 和 document.documentElement.clientHeight
+
+## 总结 JS 中各种尺寸的用途
+
+1. clientWidth/clientHeight
+
+   视口大小：可见区域的宽度或高度，不包括 border、水平滚动条、margin 的元素的宽度或高度，只包括元素的内容区域和 padding 值
+   ![](./imgs/Snipaste_2022-11-08_00-59-16.jpg)
+
+2. offsetWidth/offsetHeight
+
+视觉大小：看得见的大小，不包括 margin 的元素的宽度或高度，只包括 padding、border、水平滚动条的宽度或高度
+![](./imgs/Snipaste_2022-11-08_01-02-36.jpg)
+
+3. offsetTop/offsetLeft
+
+当前元素的偏移量：当父级有定位，根据父级的偏移量，父级没有定位则是根据页面的偏移量。表示相对父级顶部或者左边的距离。
+![](./imgs/Snipaste_2022-11-08_01-03-51.jpg)
+
+4. scrollWidth/scrollHeight
+
+当产生滚动条时，元素里边全文内容的宽度或高度，包含溢出的文本的尺寸，也就是包含可滚动的距离(scrollTop/scrollLeft)。
+
+5. scrollTop/scrollLeft
+
+滚动的距离到顶部或左边的位置。(可设置)
+![](./imgs/Snipaste_2022-11-08_01-05-07.jpg)
+
+# Http————三次握手与四次挥手
+
+## 三次握手
+
+1. 第一次握手：建立连接时，客户端发送 syn 包（seq=x）到服务器，并进入 SYN_SENT 状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。**TCP 规定，SYN 报文段（SYN=1 的报文段）不能携带数据，但需要消耗掉一个序号。**
+
+2. 第二次握手：服务器收到 syn 包，必须确认客户端的 SYN（ack=x+1），同时自己也发送一个 SYN 包（seq=y），即 SYN+ACK 包，此时服务器进入 SYN_RECV 状态。**这个报文也不能携带数据，但是同样要消耗一个序号。**
+
+3. 第三次握手：客户端收到服务器的 SYN+ACK 包，向服务器发送确认包 ACK(ack=y+1)，此包发送完毕，客户端和服务器进入 ESTABLISHED（TCP 连接成功）状态，双方就可以通信了，完成三次握手。**TCP 规定，ACK 报文段可以携带数据，但是如果不携带数据则不消耗序号。**
+
+![](./imgs/Snipaste_2022-11-09_17-24-11.jpg)
+
+通俗理解：
+
+第一次握手：客户端要和服务端进行通信，首先要告知服务端一声，遂发出一个 SYN=1 的连接请求信号,”服务端，我想和你说话”。
+
+第二次握手：当服务端接收到客户端的连接请求，此时要给客户端一个确认信息，”我知道了（ACK）,我这边已经准备好了，你现在能连吗（SYN）”。
+
+第三次握手：当客户端收到了服务端的确认连接信息后，要礼貌的告知一下服务端，“好的，咱们开始联通吧（ACK）”。
+
+## 四次挥手(TCP 连接的释放)
+
+在断开连接之前客户端和服务器都处于 ESTABLISHED 状态，双方都可以主动断开连接，以客户端主动断开连接为优。
+
+挥手过程：
+
+1. 第一次挥手：客户端打算断开连接，向服务器发送 FIN 报文(FIN 标记位被设置为 1，1 表示为 FIN，0 表示不是)，FIN 报文中会指定一个序列号，之后客户端进入 FIN_WAIT_1 状态。
+
+也就是客户端发出连接释放报文段(FIN 报文)，指定序列号 seq = u，主动关闭 TCP 连接，等待服务器的确认。
+
+**TCP 规定，FIN 报文段即使不携带数据，也要消耗一个序号。**
+
+2. 第二次挥手：服务器收到连接释放报文段(FIN 报文)后，就向客户端发送 ACK 应答报文，以客户端的 FIN 报文的序列号 seq+1 作为 ACK 应答报文段的确认序列号 ack = seq+1 = u + 1。
+
+接着服务器进入 CLOSE_WAIT(等待关闭)状态，此时的 TCP 处于半关闭状态，客户端到服务器的连接释放。客户端收到来自服务器的 ACK 应答报文段后，进入 FIN_WAIT_2 状态。
+
+3. 第三次挥手：服务器也打算断开连接，向客户端发送连接释放(FIN)报文段，之后服务器进入 LASK_ACK(最后确认)状态，等待客户端的确认。
+
+服务器的连接释放(FIN)报文段的 FIN=1，ACK=1，序列号 seq=m，确认序列号 ack=u+1。
+
+4.第四次挥手：客户端收到来自服务器的连接释放(FIN)报文段后，会向服务器发送一个 ACK 应答报文段，以连接释放(FIN)报文段的确认序号 ack 作为 ACK 应答报文段的序列号 seq，以连接释放(FIN)报文段的序列号 seq+1 作为确认序号 ack。
+
+之后客户端进入 TIME_WAIT(时间等待)状态，服务器收到 ACK 应答报文段后，服务器就进入 CLOSE(关闭)状态，到此服务器的连接已经完成关闭。
+
+通俗理解：
+
+第一次挥手：双方交流的差不多了，此时客户端也已经结尾了，接下来要断开通信连接，所以告诉服务端“我说完了（FIN）”，此时自身形成等待结束连接的状态
+
+第二次挥手：服务端知道客户端已经没话说了，服务端此时还有两句心里话要给客户端说，“我知道你说完了（ACK），我再给你说两句，吧啦吧啦。。。
+
+第三次挥手：此时客户端洗耳恭听继续处于等待结束的状态，服务器端也说完了，自身此时处于等待关闭连接的状态，并对告诉客户端，“我说完了，咱们断了吧（FIN）”。
+
+第四次挥手：客户端收知道服务端也说完了，也要告诉服务端一声（ACK），因为连接和断开要双方都按下关闭操作才能断开，客户端同时又为自己定义一个定时器，因为不知道刚才说的这句话能不能准确到达服务端（网络不稳定或者其他因素引起的网络原因），默认时间定为两个通信的最大时间之和，超出这个时间就默认服务器端已经接收到了自己的确认信息，此时客户端就关闭自身连接，服务器端一旦接收到客户端发来的确定通知就立刻关闭服务器端的连接。
+
+# 事件循环 Event Loop
+
+事件循环 Event Loop 又叫事件队列
+
+## 微任务、宏任务
+
+1. 微任务与宏任务就属于 js 代码的范畴
+2. js 代码主要分为两大类： 同步代码、异步代码
+3. 异步代码又分为：微任务与宏任务
+   ![](./imgs/Snipaste_2022-11-09_17-47-13.jpg)
+
+## 事件循环 Event Loop 执行机制
+
+1. 进入到 script 标签,就进入到了第一次事件循环
+2. 遇到同步代码，立即执行
+3. 遇到宏任务,放入到宏任务队列里
+4. 遇到微任务,放入到微任务队列里
+5. 执行完所有同步代码
+6. 执行微任务代码
+7. 微任务代码执行完毕，本次队列清空
+
+寻找下一个宏任务，重复步骤 1
+// 以此反复直到清空所以宏任务，这种不断重复的执行机制，就叫做事件循环
+
+![](./imgs/Snipaste_2022-11-09_17-57-32.jpg)
+
+## 易错点
+
+1. promise 本身是同步的,then 才是异步的
+
+2. **await** 右边的表达式还是会立即执行,表达式之后的代码才是微任务, await 微任务可以转换成等价的 promise 微任务分析
+
+3. script 标签本身是一个宏任务， 当页面出现多个 script 标签的时候，浏览器会把 script 标签作为宏任务来解析
+
+## 练习
+
+1. 当函数内有两个 await，只有第一个 await 右边的代码会被立即执行
+   ![](./imgs/Snipaste_2022-11-09_17-54-13.jpg)
+
+2. promise 与 async 结合
+   ![](./imgs/Snipaste_2022-11-09_18-06-54.jpg)
+   ![](./imgs/Snipaste_2022-11-09_18-07-43.jpg)
+
+# cookie
+
+本地存储

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    /*
+      参考地址：https://blog.csdn.net/fangqi20170515/article/details/125662715
+      要点：map.get().childrens 是引用，修改后TreeData里面的outputObj也会同步跟着变化。因为是同一个地址
+
+      难点：将id当作树的节点，当pid与id相同时，将pid所在的对象在id后创建一个children数组，插入进去。
+
+        当插入pid=4这条数据时的过程：首先判断map中已经有了4这个键，接着通过map.get().childrens，修改map键对应的value值(因为map.get()得到的是引用地址，修改数据时treeData里的outputObj会同步跟着变化)
+    */
+
+    //扁平数据结构
+    let data = [
+      { id: 1 },
+      { pid: 1, id: 2 },
+      { id: 3 },
+      { pid: 3, id: 4 },
+      { pid: 4, id: 5 },
+    ];
+    let TreeData = GetTreeData(data);
+    console.log(TreeData);
+
+    // 思路：Map,Map存储id,将id作为节点 new Object(obj)，深拷贝对象 定义pid，是为了方便让相同的pid与id相绑定
+
+    /* id=3 有 ——> {
+      id:3,
+      childrens:[{ pid: 3, id: 4}]
+    }
+    再把4作为map的key
+*/
+    function GetTreeData(data) {
+      let TreeData = [];
+      let map = new Map();
+      let pid, outputObj;
+      for (let i = 0; i < data.length; i++) {
+        pid = data[i].pid ? data[i].pid : 0;
+        if (!map.has(pid) && pid == 0) {
+          outputObj = new Object(data[i]);
+          TreeData.push(outputObj);
+          map.set(data[i].id, outputObj); //此时是关键，需要将这一条数据的id作为map的键存放，方便下一次循环时查找到的pid与键相同时，进行添加child操作
+        } else if (map.has(pid)) {
+          if (!map.get(pid).children) map.get(pid).children = []; //判断pid对应的map结构中的value属性中是否有child
+          let obj = new Object(data[i]);
+          map.get(pid).children.push(obj);
+          map.set(data[i].id, obj); //再把id作为map的key，用作下一轮循环的判断
+        }
+      }
+      return TreeData;
+    }
+
+    // function GetTreeData(data) {
+    //   let TreeData = [];
+    //   let map = new Map(); //存在id,对应所在的内存地址
+    //   let outputObj, pid;
+    //   for (let i = 0; i < data.length; i++) {
+    //     pid = data[i].pid ? data[i].pid : 0;
+    //     if (map.has(pid)) {
+    //       //存在，将些信息，加入到对应id=pid的对象上的children
+    //       if (!map.get(pid).childrens) map.get(pid).childrens = [];
+    //       let obj = new Object(data[i]);
+    //       map.get(pid).childrens.push(obj);
+    //       //通过pid在Map中查找，并将当前对象，加入到对应的childres属性
+    //       map.set(data[i].id, obj);
+    //       //重点(必须也加入Map)：将当前id及对应的对象，存入Map对象中
+    //     } else if (!map.has(pid) && pid == 0) {
+    //       //这里处理pid不存在，且pid 为0的处理，pid不存在，且不为0的，程序不考虑这种情况
+    //       outputObj = new Object(data[i]);
+    //       //加入到要返回的数组中
+    //       TreeData.push(outputObj);
+    //       //将id添加到Map中
+    //       map.set(data[i].id, outputObj);
+    //     }
+    //   }
+    //   return TreeData;
+    // }
+  </script>
+</html>

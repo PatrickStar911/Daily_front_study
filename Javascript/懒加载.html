@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    header{
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 24px;
+      font-weight: 900;
+      background-color: #ccc;
+      color: white;
+    }
+    main{
+      width: 800px;
+      height: 100%;
+      border: 5px solid #3bb7a6;
+      margin: 0 auto;
+    }
+    .container {
+      width: 750px;
+      height: 3000px;
+      margin: 0 auto;
+      background-image: linear-gradient(#00ac55, skyblue, violet);
+    }
+  </style>
+
+<body>
+  <header>我是标题</header>
+  <main>
+    <div class="container"></div>
+  </main>
+</body>
+<script>
+  var outer = document.querySelector("main")
+  var inner = document.querySelector(".container")
+  // let scrollTop = outer.scrollTop
+  let isLoading = false
+  window.onscroll = function(){
+    var scrollTop = Math.round(document.documentElement.scrollTop) 
+    var clientHeight = Math.round(document.documentElement.clientHeight) 
+    var offsetTop = outer.offsetTop
+    var offsetHeight = outer.offsetHeight
+    // console.log("scrollTop",scrollTop);
+    // console.log("offsetTop",offsetTop);
+    // console.log("clientHeight",clientHeight);
+    // console.log(scrollTop,clientHeight);
+    if(isLoading) return
+    if((offsetTop+offsetHeight) - (scrollTop+clientHeight) < 100){
+      isLoading = true
+      
+      setTimeout(()=>{
+        console.log("开始加载数据"); //渲染页面
+        isLoading = false; //再重置状态位，使页面进行新一轮的滚动判断
+      },1000)
+
+    }
+  }
+
+</script>
+
+</html>

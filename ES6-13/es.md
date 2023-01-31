@@ -1201,3 +1201,164 @@ NodeJS 中采用的是 commonjs 的语法规范
 ![](./imgs/Snipaste_2022-11-03_23-40-50.jpg)
 
 ![](./imgs/Snipaste_2022-11-03_23-56-23.jpg)
+
+## BigInt
+
+能精确处理 -2^53 到 2^53 之外的数
+
+```
+
+let num1 = 123;
+let num2 = 123n; // bigInt类型
+
+log(num1 == num2) // true;
+log(num1 === num2) // false;
+
+加减乘数的注意点:
+bigInt类型不能跟其他类型加减乘除
+
+log(num2 + 2) //报错
+
+```
+
+### 转化为 BigInt 类型
+
+用 BigInt()方法转换为 bigInt 类型
+
+> log(num2 + BigInt(2)) // 125n
+
+## globalThis
+
+用标准的方式获取不同环境下的全局 this 对象
+
+在 Node 环境中，顶层对象是 global
+在 h5 中，顶层对象是 webworker
+globalThis 可以在不同环境中指向不同的顶层对象
+
+## 空值合并运算符
+
+?? 空值合并运算符
+
+```
+
+??是用于判断空值的，如null或undefined
+let str = null ?? "zpc"; //zpc
+
+和||的区别: ||是判断true和false的
+let null = 0 ?? "zpc" // 0
+let null = 0 || "zpc" // zpc
+
+```
+
+使用场景
+![](./imgs/Snipaste_2022-11-04_15-58-26.jpg)
+
+## 可选链操作符
+
+?.操作符
+![](./imgs/Snipaste_2022-11-04_15-59-20.jpg)
+
+## ES12 新特性
+
+## 逻辑赋值操作符
+
+![](./imgs/Snipaste_2022-11-04_16-03-11.jpg)
+
+1. ??=
+
+```
+
+   a = a ?? b;
+   a ??= b
+
+```
+
+2. &&=
+
+```
+
+   a = a && b;
+
+   &&=的用法就是上面的简写
+
+   a&&=b; 将a && b的值赋给a
+
+```
+
+3. ||=
+
+## 数字分隔符
+
+![](./imgs/Snipaste_2022-11-04_16-07-26.jpg)
+
+```
+
+let num1 = 123456789;
+let num2 = 1_234_567_8_9;
+
+log(num1 === num2); // true;
+
+_ 下划线只是为了方面阅读，无任何含义
+
+```
+
+## replaceAll
+
+![](./imgs/Snipaste_2022-11-04_16-10-54.jpg)
+
+## WeakRefs
+
+Weak 系列，解决内存泄漏而存在
+
+1. weakSet()
+
+```
+weakSet，weakMap的特点：
+1. 只能复杂类型
+2. 不会将内容引用计数+1
+3. size,for不能用了
+
+正常情况下，js的垃圾回收机制是根据引用的数量是否>0来判断的
+当引用的数量为0，则当垃圾进行回收处理
+
+如:
+let obj = {name: "111"};
+
+obj = null; // 此时无法再访问到原来obj的地址
+
+但是，当使用set结构添加对象到自身上时，再将obj赋为null，此时obj依然存在，但是无法再访问到
+
+let s1 = new Set()
+s1.add(obj);
+obj = null; // 虽然设置为null，但此时Set结构中依旧有Obj这个对象，但是无法访问，如 s1.has(obj) // false
+
+解决方案：使用weakSet()
+
+let s1 = new WeakSet()
+s1.add(obj)
+obj = null; 此时里面不会有Obj了，解决了内存泄漏问题
+
+```
+
+## FinalizationRegistry
+
+![](./imgs/Snipaste_2022-11-04_16-10-54.jpg)
+
+## ES13 新特性
+
+### 私有属性和方法
+
+![](./imgs/Snipaste_2022-11-04_17-36-13.jpg)
+
+### 静态代码块
+
+## 支持在最外层写 await
+
+需要放在 module 中
+![](./imgs/Snipaste_2022-11-04_17-39-14.jpg)
+
+优势：可以让模块变成异步的，模块中的 await 等不到结果，则不导出
+![](./imgs/Snipaste_2022-11-04_17-43-57.jpg)
+
+黄金搭档
+![](./imgs/Snipaste_2022-11-04_17-46-10.jpg)
