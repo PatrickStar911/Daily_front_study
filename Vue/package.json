@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "nanoid": "^4.0.0"
+    "animate.css": "^4.1.1",
+    "nanoid": "^4.0.0",
+    "pubsub-js": "^1.9.4"
   }
 }
