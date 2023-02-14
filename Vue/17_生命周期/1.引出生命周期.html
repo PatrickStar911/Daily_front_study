@@ -29,10 +29,13 @@
       methods: {},
       //Vue完成模板解析并把初始的真实Dom元素放入页面后（挂载完毕）调用mounted
       mounted() {
-        setInterval(() => {
+        this.timer = setInterval(() => {
           this.opacity -= 0.01;
           if (this.opacity <= 0) this.opacity = 1;
         }, 16);
+      },
+      beforeDestroy() {
+        clearInterval(this.timer);
       },
     });
 
